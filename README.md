@@ -18,3 +18,11 @@
 **Problem:** General relativity is often either shallowly/inaccurately portrayed or explained in a depth that makes it hard for the general public to learn in terms of online resources.
 
 **Functionality:** The game should slowly and intuitively introduce general relativity, perhaps using a classical mechanics analog and slowly working its way up to basic general relativity that is taught to the user through the game.
+
+**Machine Learning Model To Identify Leakage**
+
+**User:** Physicists, students and engineers interested in developing software that combats leakage in quantum computing
+
+**Problem:** Leakage in quantum computing is often hard to identify and greatly contributes to the error rate that locks modern quantum computing at NISQ for the transom superconducting qubit architecture. 
+
+**Functionality:** The model should be able to somewhat correctly guess the position of a leaked qubit given a dataset of syndrome measurements from a given circuit that has an unknown leaked qubit(s). 
