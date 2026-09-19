@@ -1,18 +1,37 @@
 # APCSFullYearProject
 
-## Project Dependencies:
+## Project Dependencies (Qiskit, Python 3.11 or higher):
 
-### Qiskit
-**MacOS:**
-`python3 -m venv qiskit-env`
+### Windows (PowerShell)
 
-`source qiskit-env/bin/activate`
+```powershell
+# 1. Create the virtual environment using Python 3.12
+py -3.12 -m venv qiskit-env
 
-`pip install --upgrade pip`
+# 2. Activate the environment
+.\qiskit-env\Scripts\Activate.ps1
 
-`pip install 'qiskit[visualization]'`
+# 3. Upgrade package installer
+pip install --upgrade pip
 
-### Python version 3.11 or higher
+# 4. Install Qiskit and the local Aer simulator
+pip install qiskit qiskit-aer qiskit-ibm-runtime
+```
+### macOS (Terminal)
+
+```bash
+# 1. Create the virtual environment using Python 3.12 explicitly
+python3.12 -m venv qiskit-env
+
+# 2. Activate the environment
+source qiskit-env/bin/activate
+
+# 3. Upgrade your package installer
+pip install --upgrade pip
+
+# 4. Install Qiskit and the local Aer simulator
+pip install qiskit qiskit-aer qiskit-ibm-runtime
+```
 
 ## Project Brainstorm:
 **Qubit Leakage Modeling**( currently preferred idea ):
