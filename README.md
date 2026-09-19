@@ -1,5 +1,19 @@
 # APCSFullYearProject
 
+## Project Dependencies:
+
+### Qiskit
+**MacOS:**
+`python3 -m venv qiskit-env`
+
+`source qiskit-env/bin/activate`
+
+`pip install --upgrade pip`
+
+`pip install 'qiskit[visualization]'`
+
+### Python version 3.11 or higher
+
 ## Project Brainstorm:
 **Qubit Leakage Modeling**( currently preferred idea ):
 
