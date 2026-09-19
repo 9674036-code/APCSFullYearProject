@@ -1,35 +1,49 @@
 # APCSFullYearProject
 
-## Project Dependencies (Qiskit, Python 3.11 or higher):
+## Project Dependencies (Qiskit, Python 3.12):
 
 ### Windows (PowerShell)
+**Download Python 3.12:** 
+
+- Go to [Python3.12Install](https://www.python.org/downloads/release/python-3128/)
+- In the files section at the bottom, download Windows installer (64-bit)
+- Open the downloaded file
+- At the bottom of the installation window check the box that says "Add python.exe to PATH"
+- Click on Install Now at the top of the window and click "Close" once finished
 
 ```powershell
-# 1. Create the virtual environment using Python 3.12
+#Check Python version and ensure that it is 3.12
+py -3.12 --version
+
+# Create the virtual environment using Python 3.12
 py -3.12 -m venv qiskit-env
 
-# 2. Activate the environment
+# Activate the environment
 .\qiskit-env\Scripts\Activate.ps1
 
-# 3. Upgrade package installer
+# Upgrade package installer
 pip install --upgrade pip
 
-# 4. Install Qiskit and the local Aer simulator
+# Install Qiskit and the local Aer simulator
 pip install qiskit qiskit-aer qiskit-ibm-runtime
 ```
 ### macOS (Terminal)
 
+
 ```bash
-# 1. Create the virtual environment using Python 3.12 explicitly
+# Install Python 3.12 using Homebrew
+brew install python@3.12
+
+# Create the virtual environment using Python 3.12 explicitly
 python3.12 -m venv qiskit-env
 
-# 2. Activate the environment
+# Activate the environment
 source qiskit-env/bin/activate
 
-# 3. Upgrade your package installer
+# Upgrade your package installer
 pip install --upgrade pip
 
-# 4. Install Qiskit and the local Aer simulator
+# Install Qiskit and the local Aer simulator
 pip install qiskit qiskit-aer qiskit-ibm-runtime
 ```
 
