@@ -25,7 +25,7 @@ py -3.12 -m venv qiskit-env
 pip install --upgrade pip
 
 # Install Qiskit and the local Aer simulator
-pip install qiskit qiskit-aer qiskit-ibm-runtime
+pip install qiskit qiskit-aer
 ```
 ### macOS (Terminal)
 
@@ -44,7 +44,7 @@ source qiskit-env/bin/activate
 pip install --upgrade pip
 
 # Install Qiskit and the local Aer simulator
-pip install qiskit qiskit-aer qiskit-ibm-runtime
+pip install qiskit qiskit-aer
 ```
 
 ## Project Brainstorm:
