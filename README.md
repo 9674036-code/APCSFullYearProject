@@ -50,6 +50,8 @@ pip3 install qiskit-dynamics
 ## Project Class Diagram and Logic Flow Diagram
 ![UML Image](https://github.com/9674036-code/APCSFullYearProject/blob/main/images/LeakageSimulationAndPredicitonUMLImage.png?raw=true)
 [UML pdf](https://github.com/9674036-code/APCSFullYearProject/blob/main/planning/system-design/LeakageSimulationAndPredictionUML.drawio.pdf)
+![Logic Flow Image](https://github.com/9674036-code/APCSFullYearProject/blob/main/images/QubitLeakageSimulationAndIdentificationLogicFlowImage.drawio.png?raw=true)
+[Logic Flow pdf](https://github.com/9674036-code/APCSFullYearProject/blob/main/planning/system-design/QubitLeakageSimulationAndIdentificationLogicFlow.drawio.pdf)
 ## Project Brainstorm:
 **Qubit Leakage Modeling**( currently preferred idea ):
 
