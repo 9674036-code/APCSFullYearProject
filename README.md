@@ -41,10 +41,11 @@ python3.12 -m venv qiskit-env
 source qiskit-env/bin/activate
 
 # Upgrade your package installer
-pip install --upgrade pip
+pip3 install --upgrade pip
 
-# Install Qiskit and the local Aer simulator
-pip install qiskit qiskit-aer
+# Install Qiskit, the local Aer simulator, and Dynamics
+pip3 install qiskit qiskit-aer
+pip3 install qiskit-dynamics 
 ```
 
 ## Project Brainstorm:
