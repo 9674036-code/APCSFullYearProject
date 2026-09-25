@@ -47,7 +47,9 @@ pip3 install --upgrade pip
 pip3 install qiskit qiskit-aer
 pip3 install qiskit-dynamics 
 ```
-
+## Project Class Diagram and Logic Flow Diagram
+![UML Image](https://github.com/9674036-code/APCSFullYearProject/blob/main/images/LeakageSimulationAndPredicitonUMLImage.png?raw=true)
+[UML pdf](https://github.com/9674036-code/APCSFullYearProject/blob/main/planning/system-design/LeakageSimulationAndPredictionUML.drawio.pdf)
 ## Project Brainstorm:
 **Qubit Leakage Modeling**( currently preferred idea ):
 
