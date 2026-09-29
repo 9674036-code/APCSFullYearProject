@@ -54,10 +54,8 @@ initialState = DensityMatrix(np.pad(DensityMatrix.from_label('+').data, ((0, 1),
 sol = solver.solve( t_span=[0, tMax],
     y0=initialState,
     t_eval=tEval,
-    method="RK45" 
-    signals=[])
+    method="RK45")
 
-# Extract and Plot Population and Coherence
 # Extract the density matrix array at all time steps
 states = sol.y
 
