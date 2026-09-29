@@ -15,9 +15,13 @@ tEval = np.linspace(0, tMax, numSteps)
 
 # Define Pauli operators
 X = Operator.from_label('X').data
-Z = Operator.from_label('Z').data
+Z = np.array([[1,0,0],
+    [0,-1,0],
+    [0,0,0]])
 # Define the Hamiltonian
 H = (w / 2) * Z
+
+dim = 3
 
 # Define Dissipators
 t1 = 0.5  # Relaxation time constant
@@ -26,23 +30,32 @@ t2 = 0.3  # Dephasing time constant
 # Dissipator for T1 (lowering operator: |0><1|)
 # Qiskit's convention maps |0> to [1, 0]^T and |1> to [0, 1]^T
 # Lowering operator maps |1> -> |0>, which is the matrix elements [[0, 1], [0, 0]]
-lRelax = np.array([[0, 1], [0, 0]]) / np.sqrt(t1)
+lRelax = np.array([[0.0,1.0,0.0],
+    [0.0,0.0,0.0],
+    [0.0,0.0,0.0]
+]) / np.sqrt(t1)
+
+lRelaxLeakage=np.array([[0.0,0.0,0.0],
+    [0.0,0.0,np.sqrt(2)],
+    [0.0,0.0,0.0]
+]) / np.sqrt(t1)
 
 # Dissipator for T2
 lDephase = Z / np.sqrt(2 * t2)
 
 #Qiskit Dynamics Solver
 solver = Solver( static_hamiltonian=H,
-    static_dissipators=[lRelax, lDephase])
+    static_dissipators=[lRelax, lRelaxLeakage, lDephase])
 
 #Define initial state (Superposition state: |+>)
-initialState = DensityMatrix.from_label('+')
+initialState = DensityMatrix(np.pad(DensityMatrix.from_label('+').data, ((0, 1), (0, 1))))
 
 # Run the simulation
 sol = solver.solve( t_span=[0, tMax],
     y0=initialState,
     t_eval=tEval,
-    method="RK45" )
+    method="RK45" 
+    signals=[])
 
 # Extract and Plot Population and Coherence
 # Extract the density matrix array at all time steps
