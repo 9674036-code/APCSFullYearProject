@@ -31,6 +31,8 @@ pip install qiskit qiskit-aer
 
 
 ```bash
+
+''' For now, don't use python 3.12, 3.10 should be okay for now
 # Install Python 3.12 using Homebrew
 brew install python@3.12
 
@@ -41,7 +43,7 @@ echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zsh
 echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 source ~/.zshrc
 pyenv install 3.12
-
+'''
 
 # Create the virtual environment using Python 3.12 explicitly
 python3.12 -m venv qiskit-env
