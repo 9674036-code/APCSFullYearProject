@@ -114,7 +114,7 @@ while True:
             matrix = rho.data
         else:
             matrix = rho
-        if i==9 and g_queue[0]==1:
+        if i==9 and g_queue[0]=="1":
             matrix=matrix.evolve(noisy_gate_channel)
             g_queue.popleft()
         i+=1
