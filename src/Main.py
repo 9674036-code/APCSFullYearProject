@@ -10,18 +10,18 @@ dim = 3
 
 def add_average_leakage(ideal_gate_matrix, leakage_rate, computational_dim):
 
-    embedded_gate = np.identity(computational_dim+1, dtype=complex)
+    embedded_gate = np.identity(computational_dim, dtype=complex)
     embedded_gate[:computational_dim, :computational_dim] = ideal_gate_matrix
 
-    E0 = np.identity(computational_dim+1, dtype=complex)
-    for i in range(computational_dim):
+    E0 = np.identity(computational_dim, dtype=complex)
+    for i in range(computational_dim-1):
         E0[i, i] = np.sqrt(1 - leakage_rate)
-    E0[computational_dim, computational_dim] = 1.0
+    E0[computational_dim-1, computational_dim-1] = 1.0
 
     # Define the Kraus operator for the leakage path
-    E1 = np.zeros((computational_dim+1, computational_dim+1), dtype=complex)
-    for i in range(computational_dim):
-        E1[computational_dim, i] = np.sqrt(leakage_rate)
+    E1 = np.zeros((computational_dim, computational_dim), dtype=complex)
+    for i in range(computational_dim-1):
+        E1[computational_dim-1, i] = np.sqrt(leakage_rate)
 
     # Combine the embedded unitary gate action with the leakage noise channel
     gate_superop = SuperOp(Operator(embedded_gate))
@@ -61,7 +61,7 @@ while True:
     Z = np.array([[1,0,0],
         [0,-1,0],
         [0,0,0]])
-    noisy_gate_channel = add_average_leakage(X, leakage_rate=0.02, computational_dim=3)
+    noisy_gate_channel = add_average_leakage(X, leakage_rate=0.92, computational_dim=3)
     
     # Define the Hamiltonian
     H = (w / 2) * Z
@@ -110,13 +110,16 @@ while True:
     coherence = []
     i=0
     for rho in states:
+        if not deque:
+            if i==9 and g_queue[0]=="1":
+                rho=rho.evolve(noisy_gate_channel)
+                g_queue.popleft()
+                i=0
         if hasattr(rho, 'data'):
             matrix = rho.data
         else:
             matrix = rho
-        if i==9 and g_queue[0]=="1":
-            matrix=matrix.evolve(noisy_gate_channel)
-            g_queue.popleft()
+
         i+=1
         excitedPopulation.append(np.real(matrix[1, 1])) 
         leakagePopulation.append(np.real(matrix[2, 2]))
@@ -136,4 +139,3 @@ while True:
 
     if input("Do you want to simulate again?(Y/N)  ")!="Y":
         break
-
