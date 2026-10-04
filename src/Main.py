@@ -10,8 +10,7 @@ dim = 3
 
 def add_average_leakage(ideal_gate_matrix, leakage_rate, computational_dim):
 
-    embedded_gate = np.identity(computational_dim, dtype=complex)
-    embedded_gate[:computational_dim, :computational_dim] = ideal_gate_matrix
+    embedded_gate = ideal_gate_matrix
 
     E0 = np.identity(computational_dim, dtype=complex)
     for i in range(computational_dim-1):
@@ -30,7 +29,6 @@ def add_average_leakage(ideal_gate_matrix, leakage_rate, computational_dim):
     return leakage_channel @ gate_superop
 
 while True:
-    g_queue=n_queue
     w = 5.0 * 2 * np.pi  # Qubit frequency (e.g., 5 GHz)
     while True:
         try:
@@ -51,7 +49,6 @@ while True:
             print(f"Removed, Your Current Gate Queue: {g_queue}")  
         else:
             print("Queue saved")
-            n_queue=g_queue
             break
     
     # Define Pauli operators
@@ -110,7 +107,7 @@ while True:
     coherence = []
     i=0
     for rho in states:
-        if not deque:
+        if len(g_queue)>0:
             if i==9 and g_queue[0]=="1":
                 rho=rho.evolve(noisy_gate_channel)
                 g_queue.popleft()
