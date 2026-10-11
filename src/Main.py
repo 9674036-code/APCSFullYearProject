@@ -38,7 +38,7 @@ while True:
         except ValueError:
             print("Invalid input. Please enter a valid number.")
     numSteps = tMax*100      # Number of evaluation points
-    
+    tEval = np.linspace(0, tMax, numSteps)
     
     print(f"Your Current Gate Queue: {g_queue}")    
     while True:
@@ -93,7 +93,8 @@ while True:
     #Define initial state (Superposition state: |+>)
     initialState = DensityMatrix(np.pad(DensityMatrix.from_label('+').data, ((0, 1), (0, 1))))
 
-
+    excitedPopulation = []
+    leakagePopulation = []
     states=[]
     for i in range(gate_delay,numSteps+1,gate_delay):
         # Run the simulation
@@ -133,10 +134,12 @@ while True:
     '''
     # Plotting
     plt.figure(figsize=(10, 5))
-    plt.plot(tEval, excitedPopulation,
-             label=r'Excited ($\vert1\rangle$)', color='blue')
-    plt.plot(tEval, leakagePopulation, 
-             label=r'Leaked ($\vert2\rangle$)',color='red')
+    plt.stackplot(tEval, excitedPopulation, leakagePopulation,
+             labels=[r'Excited ($\vert1\rangle$)',r'Leaked ($\vert2\rangle$)'],
+             colors=[blue, red])
+    
+    plt.plot(tEval, leakagePopulation, excitedPopulation,
+             labels=[r'Leaked ($\vert2\rangle$)',color='red')]
     plt.xlabel('Time (ns)')
     plt.ylabel('Value')
     plt.title('Single Qubit Population Stack Over Time')
