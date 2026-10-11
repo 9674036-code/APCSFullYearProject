@@ -6,6 +6,7 @@ from collections import deque
 g_queue=deque()
 n_queue=deque()
 dim = 3
+gate_delay=10
 
 
 def add_average_leakage(ideal_gate_matrix, leakage_rate, computational_dim):
@@ -36,8 +37,8 @@ while True:
             break
         except ValueError:
             print("Invalid input. Please enter a valid number.")
-    numSteps = 200      # Number of evaluation points
-    tEval = np.linspace(0, tMax, numSteps)
+    numSteps = tMax*100      # Number of evaluation points
+    
     
     print(f"Your Current Gate Queue: {g_queue}")    
     while True:
@@ -50,6 +51,7 @@ while True:
         else:
             print("Queue saved")
             break
+        if 
     
     # Define Pauli operators
     X =  np.array([[0, 1, 0],
@@ -90,16 +92,24 @@ while True:
     
     #Define initial state (Superposition state: |+>)
     initialState = DensityMatrix(np.pad(DensityMatrix.from_label('+').data, ((0, 1), (0, 1))))
-    
-    # Run the simulation
-    sol = solver.solve( t_span=[0, tMax],
-        y0=initialState,
-        t_eval=tEval,
-        method="RK45")
-    
-    # Extract the density matrix array at all time steps
-    states = sol.y
-    
+
+
+    states=[]
+    for i in range(gate_delay,numSteps+1,gate_delay):
+        # Run the simulation
+        sol = solver.solve( t_span=[0, tMax],
+            y0=initialState,
+            t_eval=np.linspace((i-gate_delay)/100,i/100,gate_delay,endpoint=False),
+            method="RK45")
+        states.extend(sol.y) # Flatten list
+        if len(g_queue)>0 and g_queue[0]=="1":
+            initialState=states[-1].evolve(noisy_gate_channel)
+            g_queue.popleft()
+        for i2 in states[-(gate_delay)]
+            excitedPopulation.append(np.real(i2.data[1, 1])) 
+            leakagePopulation.append(np.real(i2.data[2, 2]))
+            
+    '''
     # Population of ground state |0> is the top-left element: \rho_00
     excitedPopulation = []
     leakagePopulation = []
@@ -120,7 +130,7 @@ while True:
         i+=1
         excitedPopulation.append(np.real(matrix[1, 1])) 
         leakagePopulation.append(np.real(matrix[2, 2]))
-    
+    '''
     # Plotting
     plt.figure(figsize=(10, 5))
     plt.plot(tEval, excitedPopulation,
