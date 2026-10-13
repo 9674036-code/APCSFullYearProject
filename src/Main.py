@@ -37,8 +37,8 @@ while True:
             break
         except ValueError:
             print("Invalid input. Please enter a valid number.")
-    numSteps = tMax*100      # Number of evaluation points
-    tEval = np.linspace(0, tMax, numSteps)
+    numSteps = int(tMax*100)      # Number of evaluation points
+    tEval = np.linspace(0, tMax, num = numSteps)
     
     print(f"Your Current Gate Queue: {g_queue}")    
     while True:
@@ -51,7 +51,6 @@ while True:
         else:
             print("Queue saved")
             break
-        if 
     
     # Define Pauli operators
     X =  np.array([[0, 1, 0],
@@ -95,6 +94,8 @@ while True:
 
     excitedPopulation = []
     leakagePopulation = []
+    exitedCoherence=[]
+    leakageCoherence=[]
     states=[]
     for i in range(gate_delay,numSteps+1,gate_delay):
         # Run the simulation
@@ -106,9 +107,12 @@ while True:
         if len(g_queue)>0 and g_queue[0]=="1":
             initialState=states[-1].evolve(noisy_gate_channel)
             g_queue.popleft()
-        for i2 in states[-(gate_delay)]
+        for i2 in states[-(gate_delay):]:
             excitedPopulation.append(np.real(i2.data[1, 1])) 
-            leakagePopulation.append(np.real(i2.data[2, 2]))
+            leakagePopulation.append(np.real(i2.data[2, 2])+1)
+            exitedCoherence.append(np.abs(i2.data[0, 1]))
+            leakageCoherence.append(np.abs(i2.data[1, 2])+1)
+
             
     '''
     # Population of ground state |0> is the top-left element: \rho_00
@@ -134,12 +138,14 @@ while True:
     '''
     # Plotting
     plt.figure(figsize=(10, 5))
-    plt.stackplot(tEval, excitedPopulation, leakagePopulation,
-             labels=[r'Excited ($\vert1\rangle$)',r'Leaked ($\vert2\rangle$)'],
-             colors=[blue, red])
-    
-    plt.plot(tEval, leakagePopulation, excitedPopulation,
-             labels=[r'Leaked ($\vert2\rangle$)',color='red')]
+    plt.plot(tEval, excitedPopulation,
+             label=r'Excited ($\vert1\rangle$)', color='blue')
+    plt.plot(tEval, leakagePopulation, 
+             label=r'Leaked ($\vert2\rangle$)',color='red')
+    plt.plot(tEval, exitedCoherence,
+             label=r'ExcitedCoherence ($\vert1\rangle$)', color='blue', linestyle = '--')
+    plt.plot(tEval, leakageCoherence, 
+             label=r'LeakedCoherence  ($\vert2\rangle$)',color='red', linestyle = '--')
     plt.xlabel('Time (ns)')
     plt.ylabel('Value')
     plt.title('Single Qubit Population Stack Over Time')
